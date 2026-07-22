@@ -1,0 +1,627 @@
+@import url('https://use.typekit.net/qyw4zbq.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    /* White */
+    --foreground: 0 0% 0%;
+    /* Black Text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 270 100% 80%;
+    /* #D2A5FF */
+    --primary-foreground: 0 0% 0%;
+    /* Black Text */
+
+    --secondary: 310 100% 94%;
+    /* #FDE4FF */
+    --secondary-foreground: 0 0% 0%;
+    /* Black Text */
+
+    --muted: 310 100% 94%;
+    /* #FDE4FF */
+    --muted-foreground: 0 0% 0%;
+    /* Black */
+
+    --accent: 270 100% 80%;
+    /* #D2A5FF */
+    --accent-foreground: 0 0% 0%;
+    /* Black */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 0%;
+    /* Black Borders */
+    --input: 0 0% 0%;
+    /* Black Input Borders */
+    --ring: 270 100% 80%;
+    /* #D2A5FF */
+
+    --chart-1: 270 100% 80%;
+    /* #D2A5FF */
+    --chart-2: 310 100% 94%;
+    /* #FDE4FF */
+    --chart-3: 280 40% 50%;
+    --chart-4: 280 50% 40%;
+    --chart-5: 280 60% 30%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 280 40% 15%;
+    --foreground: 0 0% 100%;
+    /* White Text */
+
+    --card: 280 40% 15%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 280 40% 15%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 270 100% 80%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 310 100% 94%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 280 40% 20%;
+    --muted-foreground: 310 100% 94%;
+
+    --accent: 270 100% 80%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 310 100% 94%;
+
+    --border: 0 0% 100%;
+    /* White Borders in Dark Mode */
+    --input: 0 0% 100%;
+    --ring: 270 100% 80%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ─── Whiteboard Layout ─────────────────────────────────────── */
+
+.wb-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wb-canvas-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.wb-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Excalidraw-Style Top Toolbar ──────────────────────────── */
+
+.exc-toolbar-top {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+}
+
+.exc-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 2px 12px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.dark .exc-toolbar-group {
+  background: #232329;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+.exc-tool-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #1b1b1f;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  position: relative;
+}
+
+.exc-tool-btn:hover {
+  background: #ececf4;
+}
+
+.dark .exc-tool-btn {
+  color: #b8b8c4;
+}
+
+.dark .exc-tool-btn:hover {
+  background: #363540;
+}
+
+.exc-tool-btn-active {
+  background: #6965db !important;
+  color: #ffffff !important;
+}
+
+.dark .exc-tool-btn-active {
+  background: #6965db !important;
+  color: #ffffff !important;
+}
+
+/* ─── Left Properties Panel ─────────────────────────────────── */
+
+.exc-props-panel {
+  position: absolute;
+  top: 64px;
+  left: 12px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 12px;
+  min-width: 172px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 2px 12px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.dark .exc-props-panel {
+  background: #232329;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+.exc-props-section {
+  padding: 8px 0;
+}
+
+.exc-props-section+.exc-props-section {
+  border-top: 1px solid #e8e8ef;
+}
+
+.dark .exc-props-section+.exc-props-section {
+  border-top-color: #3a3a44;
+}
+
+.exc-props-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #6b6b7b;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+}
+
+.dark .exc-props-label {
+  color: #8c8c9a;
+}
+
+/* ─── Color Dots ─────────────────────────────────────────────── */
+
+.exc-color-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.exc-color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.exc-color-dot:hover {
+  transform: scale(1.15);
+}
+
+.dark .exc-color-dot {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.exc-color-dot-active {
+  border-color: #6965db;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgba(105, 101, 219, 0.35);
+  transform: scale(1.1);
+}
+
+.dark .exc-color-dot-active {
+  border-color: #8b87f5;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 0 2px rgba(139, 135, 245, 0.35);
+}
+
+/* ─── Stroke Width ───────────────────────────────────────────── */
+
+.exc-stroke-row {
+  display: flex;
+  gap: 4px;
+}
+
+.exc-stroke-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e8;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.exc-stroke-btn:hover {
+  background: #f0f0f6;
+}
+
+.dark .exc-stroke-btn {
+  border-color: #3a3a44;
+}
+
+.dark .exc-stroke-btn:hover {
+  background: #2e2e38;
+}
+
+.exc-stroke-btn-active {
+  background: #6965db !important;
+  border-color: #6965db !important;
+}
+
+.dark .exc-stroke-btn-active {
+  background: #6965db !important;
+  border-color: #6965db !important;
+}
+
+.exc-stroke-preview {
+  background: #1b1b1f;
+  border-radius: 999px;
+}
+
+.dark .exc-stroke-preview {
+  background: #d1d1db;
+}
+
+.exc-stroke-btn-active .exc-stroke-preview {
+  background: #ffffff !important;
+}
+
+/* ─── Clear Button ───────────────────────────────────────────── */
+
+.exc-clear-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #e03131;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.exc-clear-btn:hover {
+  background: #fff0f0;
+}
+
+.dark .exc-clear-btn {
+  color: #ff6b6b;
+}
+
+.dark .exc-clear-btn:hover {
+  background: #2e1a1a;
+}
+
+/* ─── Bottom Bar (Undo/Redo) ─────────────────────────────────── */
+
+.exc-bottom-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 2px 12px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.dark .exc-bottom-bar {
+  background: #232329;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+.exc-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #1b1b1f;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.exc-action-btn:hover {
+  background: #ececf4;
+}
+
+.dark .exc-action-btn {
+  color: #b8b8c4;
+}
+
+.dark .exc-action-btn:hover {
+  background: #363540;
+}
+
+.exc-action-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.exc-action-btn:disabled:hover {
+  background: transparent;
+}
+
+/* ─── Text Input Overlay ──────────────────────────────────────── */
+
+.wb-text-input {
+  position: absolute;
+  z-index: 100;
+  outline: none;
+  border: 2px solid #6965db;
+  border-radius: 4px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.95);
+  font-family: Inter, sans-serif;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 400px;
+}
+
+.dark .wb-text-input {
+  background: rgba(35, 35, 41, 0.95);
+  border-color: #8b87f5;
+}
+
+/* ─── Mobile Responsiveness ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .exc-toolbar-top {
+    width: 95%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .exc-toolbar-group {
+    min-width: max-content;
+  }
+
+  .exc-props-panel {
+    top: 80px;
+    left: 8px;
+    padding: 8px;
+    min-width: 140px;
+  }
+
+  .exc-bottom-bar {
+    bottom: 8px;
+    left: 8px;
+  }
+}
+
+/* ─── Custom View Transitions ───────────────────────────────── */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* ─── Custom Scrollbar (Light & Dark) ─────────────────────── */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+  border: none;
+  box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  /* Pill effect */
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  /* Removes top/bottom arrows */
+}
+
+/* ─── Dark Mode Overrides ─────────────────────────────────── */
+
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  /* Ensures the base scrollbar container is transparent */
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: black;
+  border: none;
+  box-shadow: none;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  /* Creates a pill effect with spacing */
+  background-clip: padding-box;
+  /* Ensures the transparent border works */
+}
+
+.dark ::-webkit-scrollbar-button {
+  display: none;
+  /* Removes the arrows at the top and bottom */
+}
+
+/* Force scrollbar to stay dark during the View Transition wave so it doesn't flash early */
+html.theme-transitioning ::-webkit-scrollbar-track {
+  background: black !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+html.theme-transitioning ::-webkit-scrollbar-thumb {
+  background: black !important;
+  border-radius: 9999px !important;
+  border: 3px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+/* ─── BlockNote Mobile Overflow Fix ───────────────────────── */
+/* Prevent any block content from escaping the notepad width on mobile */
+.bn-editor,
+.bn-block-group,
+.bn-block,
+.bn-block-content,
+.bn-inline-content {
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  min-width: 0 !important;
+}
+
+/* ─── ai-prompt block: no selection ring, always show badge ─ */
+/* Remove BlockNote's blue selection border/ring around custom blocks */
+[data-content-type="ai-prompt"],
+[data-content-type="ai-prompt"] *,
+[data-content-type="ai-prompt"] .bn-block-content,
+[data-content-type="ai-prompt"]:focus,
+[data-content-type="ai-prompt"]:focus-within,
+[data-content-type="ai-prompt"]:focus-visible,
+.bn-block[data-selected="true"] [data-content-type="ai-prompt"] {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+/* Ensure the badge row is always visible and not clipped */
+[data-content-type="ai-prompt"] [class*="bn-"] {
+  overflow: visible !important;
+}
+
+/* ─── BlockNote Placeholder Overrides ─────────────────────── */
+
+/* Ensure the initial placeholder box is tall enough on mobile to fit multiple lines */
+@media (max-width: 768px) {
+  .bn-block-group[data-level="0"]>[data-content-type="paragraph"]:only-child .bn-inline-content:empty::before {
+    white-space: normal !important;
+    height: auto !important;
+    min-height: 4em !important;
+    display: flex !important;
+    align-items: center;
+  }
+}
+
+/* Force the initial empty block to show the full custom guide text ONLY when it's the very first and only block */
+.bn-block-group[data-level="0"]>[data-content-type="paragraph"]:only-child .bn-inline-content:empty::before {
+  content: "@Light or type '/' for commands" !important;
+  color: #a1a1aa !important;
+  font-style: italic !important;
+  display: flex;
+  align-items: center;
+  /* Add subtle background in light/dark modes */
+  background: rgba(0, 0, 0, 0.03);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.dark .bn-block-group[data-level="0"]>[data-content-type="paragraph"]:only-child .bn-inline-content:empty::before {
+  background: rgba(255, 255, 255, 0.05);
+}
